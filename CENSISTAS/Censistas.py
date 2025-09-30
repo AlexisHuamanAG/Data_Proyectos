@@ -10,9 +10,9 @@ relevante=df[["DESC_SEDE","DESC_SUB_SEDE","POSTULANTE"]]
 relevante.to_csv("censistas_postulantes.csv", index=False)
 # print(nuevo)
 
-# print(df.duplicated().sum())
-# print(df.info())
-# print(df.isna().sum())
+print(df.duplicated().sum())
+print(df.info())
+print(df.isna().sum())
 
 # print(nuevo.value_counts("DESC_SEDE"))
 # print(nuevo.value_counts("DESC_SUB_SEDE"))
