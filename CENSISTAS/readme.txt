@@ -1,2 +1,1 @@
-Vacantes por ciudad, y postulantes para censistas 
-en el último censo realizado en Perú
+Vacantes y postulantes a censistas por ciudad en el último censo del Perú.

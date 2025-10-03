@@ -8,16 +8,15 @@ for col in df.select_dtypes(include="object").columns:
 
 relevante=df[["DESC_SEDE","DESC_SUB_SEDE","POSTULANTE"]]
 relevante.to_csv("censistas_postulantes.csv", index=False)
-# print(nuevo)
+
 
 print(df.duplicated().sum())
 print(df.info())
 print(df.isna().sum())
 
-# print(nuevo.value_counts("DESC_SEDE"))
-# print(nuevo.value_counts("DESC_SUB_SEDE"))
+
 grupo_lima=df.groupby("DESC_SUB_SEDE")["POSTULANTE"].count().sort_values(ascending=False, inplace=False).head(10)
-# print(grupo_lima)
+print(grupo_lima)
 
 
 df1=pd.read_csv(r"C:\Users\Usuario\Desktop\Proyectos\vacantes.csv",header=0)
