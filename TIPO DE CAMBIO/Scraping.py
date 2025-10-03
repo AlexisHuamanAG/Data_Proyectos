@@ -2,7 +2,6 @@ import requests
 import pandas as pd
 import numpy as np  
 import os
-import time
 from datetime import datetime
 import traceback
 
