@@ -5,6 +5,7 @@ tablas = pd.read_html(url)  # devuelve una lista de DataFrames
 
 print(len(tablas))  
 df = tablas[0]  
-df.to_csv("vacantes.csv",index=False)
+df.to_csv(r"C:\Users\Usuario\Desktop\Proyectos\CENSISTAS\vacantes.csv",index=False)
 
 print(df.head())
+

@@ -7,7 +7,7 @@ for col in df.select_dtypes(include="object").columns:
     df[col] = df[col].map(lambda x: x.strip().upper() if isinstance(x, str) else x)
 
 relevante=df[["DESC_SEDE","DESC_SUB_SEDE","POSTULANTE"]]
-relevante.to_csv("censistas_postulantes.csv", index=False)
+relevante.to_csv(r"C:\Users\Usuario\Desktop\Proyectos\CENSISTAS\censistas_postulantes.csv", index=False)
 
 
 print(df.duplicated().sum())
@@ -19,12 +19,12 @@ grupo_lima=df.groupby("DESC_SUB_SEDE")["POSTULANTE"].count().sort_values(ascendi
 print(grupo_lima)
 
 
-df1=pd.read_csv(r"C:\Users\Usuario\Desktop\Proyectos\vacantes.csv",header=0)
+df1=pd.read_csv(r"C:\Users\Usuario\Desktop\Proyectos\CENSISTAS\vacantes.csv",header=0)
 # print(df1.columns.tolist())
 # print(df1.duplicated().sum())
 # print(df1.info())
 # print(df1.isna().sum())
 df1["SUBSEDE DEPARTAMENTAL"] = df1["SUBSEDE DEPARTAMENTAL"].str.split(":").str[0].str.strip()
 vacantes_final=df1[["SEDE DEPARTAMENTAL","SUBSEDE DEPARTAMENTAL","PERSONAL A CONTRATAR","PERSONAL A CAPACITAR"]]
-vacantes_final.to_csv("vacantes_final.csv",index=False)
+vacantes_final.to_csv(r"C:\Users\Usuario\Desktop\Proyectos\CENSISTAS\vacantes_final.csv",index=False)
 print(vacantes_final)
