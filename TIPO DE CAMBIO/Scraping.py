@@ -1,42 +1,43 @@
 import requests
+import requests
+import re
 from bs4 import BeautifulSoup
 import pandas as pd
-from datetime import datetime
 
-import requests
-import pandas as pd
-from datetime import datetime
-
-
-fuentes = {
-    "Kambista": "https://api.kambista.com/v1/exchange/calculates?originCurrency=USD&destinationCurrency=PEN&amount=100&active=S",
+# API Kambista
+def get_kambista(amount=1500):
+    url = f"https://api.kambista.com/v1/exchange/calculates?originCurrency=USD&destinationCurrency=PEN&amount={amount}&active=S"
+    response = requests.get(url).json()
     
-}
-
-datos = []
-
-for nombre, url in fuentes.items():
-    try:
-        r = requests.get(url, timeout=5)
-        if r.status_code == 200:
-            data = r.json()
-            compra = data["tc"]["bid"]
-            venta = data["tc"]["ask"]
-            
-            datos.append({
-                "Fuente": nombre,
-                "Compra": compra,
-                "Venta": venta,
-                "Fecha": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            })
-        else:
-            print(f"Error en {nombre}: {r.status_code}")
-    except Exception as e:
-        print(f"Fallo en {nombre}: {e}")
+    return {
+        "Casa": "Kambista",
+        "Compra": float(response["tc"]["bid"]),
+        "Venta": float(response["tc"]["ask"])
+    }
 
 
-df = pd.DataFrame(datos)
 
-df.to_csv("tipos_de_cambio.csv", index=False, encoding="utf-8-sig")
+def get_rextie():
+    url = "https://app.rextie.com/api/v1/fxrates/rate/?origin=template-original&commit=false&utm_source=cuanto-esta-el-dolar&utm_medium=cced_listado&utm_campaign=landing_nuevo&utm_term=listado&utm_content="
+    
+    response = requests.post(url, json={})
+    data = response.json()
+    
+    return {
+        "Casa": "Rextie",
+        "Compra": float(data["fx_rate_buy"]),
+        "Venta": float(data["fx_rate_sell"])
+    }
 
-print(df)
+def main():
+    datos = []
+    datos.append(get_kambista())   
+    datos.append(get_rextie())    
+
+    df = pd.DataFrame(datos)
+    print(df)
+    # Guardar a CSV para Power BI
+    df.to_csv("casas_cambio.csv", index=False, encoding="utf-8-sig")
+
+if __name__ == "__main__":
+    main()
